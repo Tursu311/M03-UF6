@@ -6,7 +6,7 @@ public class ProgramaPrincipal {
     public static Connection con;
 
     public static void main(String[] args) throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://192.168.56.103/mydb?serverTimezone=UTC", "perepi", "pastanaga");
+        con = DriverManager.getConnection("jdbc:mysql://192.168.122.59/mydb?serverTimezone=UTC", "perepi", "pastanaga");
         ImportarComunitatsAutonomes();
         System.out.println("Comunitats Autonomes importades");
         ImportProvincies();

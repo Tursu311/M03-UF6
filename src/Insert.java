@@ -296,3 +296,20 @@ public class Insert {
     }
 
 }
+
+/*Rewrite the above code to use JDBC APi and DAO pattern */
+/*
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class 
+
+
+
+
+
+
+
+*/
