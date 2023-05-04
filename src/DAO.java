@@ -63,44 +63,4 @@ public class ProgramaPrincipal {
             System.out.println();
         }
     }
-
-    //fem un metode que ens mostri el percentatge de dones i homes per provincia
-    public static void donesHomesProvincia() throws SQLException {
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM provincies");
-        while (rs.next()) {
-            String nomProvincia = rs.getString("nom");
-            int idProvincia = rs.getInt("id");
-            Statement st2 = con.createStatement();
-            ResultSet rs2 = st2.executeQuery("SELECT COUNT(*) FROM persones WHERE id_provincia = " + idProvincia);
-            rs2.next();
-            int totalPersones = rs2.getInt(1);
-            Statement st3
-
-
-
-    
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM comunitats_autonomes");
-        while (rs.next()) {
-            String nomComunitat = rs.getString("nom");
-            int idComunitat = rs.getInt("id");
-            Statement st2 = con.createStatement();
-            ResultSet rs2 = st2.executeQuery("SELECT COUNT(*) FROM persones WHERE id_comunitat_autonoma = " + idComunitat);
-            rs2.next();
-            int totalPersones = rs2.getInt(1);
-            Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery("SELECT COUNT(*) FROM persones WHERE id_comunitat_autonoma = " + idComunitat + " AND sexe = 'Dona'");
-            rs3.next();
-            int dones = rs3.getInt(1);
-            Statement st4 = con.createStatement();
-            ResultSet rs4 = st4.executeQuery("SELECT COUNT(*) FROM persones WHERE id_comunitat_autonoma = " + idComunitat + " AND sexe = 'Home'");
-            rs4.next();
-            int homes = rs4.getInt(1);
-            System.out.println("Comunitat Autonoma: " + nomComunitat);
-            System.out.println("Dones: " + dones + " Homes: " + homes);
-            System.out.println("Percentatge dones: " + (dones * 100 / totalPersones) + "%");
-            System.out.println("Percentatge homes: " + (homes * 100 / totalPersones) + "%");
-            System.out.println();
-        }
-    }
+}
