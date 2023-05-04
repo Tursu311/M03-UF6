@@ -46,7 +46,7 @@ public class DAO {
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM candidatures");
         while (rs.next()) {
-            String nomCandidatura = rs.getString("nom");
+            String nomCandidatura = rs.getString("nom_curt");
             int idCandidatura = rs.getInt("id");
             Statement st2 = con.createStatement();
             ResultSet rs2 = st2.executeQuery("SELECT COUNT(*) FROM candidats WHERE id_candidatura = " + idCandidatura);
