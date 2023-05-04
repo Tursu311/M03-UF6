@@ -20,13 +20,13 @@ public class DAO {
             opcio = sc.nextInt();
             switch (opcio) {
                 case 1:
-                    donesHomesComunitatAutonoma();
+                    donesHomesCandidatura();
                     break;
                 case 2:
                     donesHomesProvincia();
                     break;
                 case 3:
-                    donesHomesCandidatura();
+                    donesHomesComunitatAutonoma();
                     break;
                 case 4:
                     System.out.println("Adéu");
@@ -63,3 +63,4 @@ public class DAO {
             System.out.println();
         }
     }
+}
