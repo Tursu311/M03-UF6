@@ -9,7 +9,11 @@ public class DAO {
     public static Connection con;
 
     public static void main(String[] args) throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://192.168.1.190/mydb?serverTimezone=UTC", "perepi", "pastanaga");
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://192.168.1.190/mydb?serverTimezone=UTC", "perepi", "pastanaga");
+        } catch (SQLException e) {
+            System.out.println("Error al crear la connexió");
+        }
         Scanner sc = new Scanner(System.in);
         int opcio = 0;
         do {
