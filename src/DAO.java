@@ -5,7 +5,7 @@
 import java.sql.*;
 import java.util.Scanner;
 
-public class ProgramaPrincipal {
+public class DAO {
     public static Connection con;
 
     public static void main(String[] args) throws SQLException {
