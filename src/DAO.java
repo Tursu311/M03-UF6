@@ -49,11 +49,11 @@ public class ProgramaPrincipal {
             rs2.next();
             int totalPersones = rs2.getInt(1);
             Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.id_persona = persones.id WHERE persones.genere = 'Dona' AND candidats.id_candidatura = " + idCandidatura);
+            ResultSet rs3 = st3.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.id_persona = persones.id WHERE persones.sexe = 'F' AND candidats.id_candidatura = " + idCandidatura);
             rs3.next();
             int dones = rs3.getInt(1);
             Statement st4 = con.createStatement();
-            ResultSet rs4 = st4.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.id_persona = persones.id WHERE persones.genere = 'Home' AND candidats.id_candidatura = " + idCandidatura);
+            ResultSet rs4 = st4.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.id_persona = persones.id WHERE persones.sexe = 'M' AND candidats.id_candidatura = " + idCandidatura);
             rs4.next();
             int homes = rs4.getInt(1);
             System.out.println("Candidatura: " + nomCandidatura);
@@ -63,4 +63,3 @@ public class ProgramaPrincipal {
             System.out.println();
         }
     }
-}
