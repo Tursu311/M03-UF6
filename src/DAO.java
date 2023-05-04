@@ -10,7 +10,7 @@ public class DAO {
 
     public static void main(String[] args) throws SQLException {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://192.168.1.190/mydb?serverTimezone=UTC", "perepi", "pastanaga");
+            con = DriverManager.getConnection("jdbc:mysql://192.168.56.103/programacio?serverTimezone=UTC", "perepi", "pastanaga");
         } catch (SQLException e) {
             System.out.println("Error al crear la connexió");
         }
@@ -19,8 +19,8 @@ public class DAO {
         do {
             System.out.println("1. Mostrar percentatge de dones i homes per candidatura");
             System.out.println("2. Mostrar percentatge de dones i homes per provincia");
-            System.out.println("4. Mostrar percentatge de dones i homes per comunitat autonoma");
-            System.out.println("5. Sortir");
+            System.out.println("3. Mostrar percentatge de dones i homes per comunitat autonoma");
+            System.out.println("4. Sortir");
             opcio = sc.nextInt();
             switch (opcio) {
                 case 1:
@@ -47,17 +47,17 @@ public class DAO {
         ResultSet rs = st.executeQuery("SELECT * FROM candidatures");
         while (rs.next()) {
             String nomCandidatura = rs.getString("nom_curt");
-            int idCandidatura = rs.getInt("id");
+            int idCandidatura = rs.getInt("candidatura_id");
             Statement st2 = con.createStatement();
-            ResultSet rs2 = st2.executeQuery("SELECT COUNT(*) FROM candidats WHERE id_candidatura = " + idCandidatura);
+            ResultSet rs2 = st2.executeQuery("SELECT COUNT(*) FROM candidats WHERE candidatura_id = " + idCandidatura);
             rs2.next();
             int totalPersones = rs2.getInt(1);
             Statement st3 = con.createStatement();
-            ResultSet rs3 = st3.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.id_persona = persones.id WHERE persones.sexe = 'F' AND candidats.id_candidatura = " + idCandidatura);
+            ResultSet rs3 = st3.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = 'F' AND candidats.candidatura_id = " + idCandidatura);
             rs3.next();
             int dones = rs3.getInt(1);
             Statement st4 = con.createStatement();
-            ResultSet rs4 = st4.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.id_persona = persones.id WHERE persones.sexe = 'M' AND candidats.id_candidatura = " + idCandidatura);
+            ResultSet rs4 = st4.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = 'M' AND candidats.candidatura_id = " + idCandidatura);
             rs4.next();
             int homes = rs4.getInt(1);
             System.out.println("Candidatura: " + nomCandidatura);
