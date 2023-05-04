@@ -27,10 +27,10 @@ public class DAO {
                     donesHomesCandidatura();
                     break;
                 case 2:
-                    donesHomesProvincia();
+                    //donesHomesProvincia();
                     break;
                 case 3:
-                    donesHomesComunitatAutonoma();
+                    //donesHomesComunitatAutonoma();
                     break;
                 case 4:
                     System.out.println("Adéu");
