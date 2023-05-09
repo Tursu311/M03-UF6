@@ -3,10 +3,13 @@ public class Candidat {
     private int idCandidatura;
     private int idPersona;
 
-    public Candidat(int id, int idCandidatura, int idPersona) {
+    private int idProvincia;
+
+    public Candidat(int id, int idCandidatura, int idPersona, int idProvincia) {
         this.id = id;
         this.idCandidatura = idCandidatura;
         this.idPersona = idPersona;
+        this.idProvincia = idProvincia;
     }
 
     public int getId() {
@@ -31,5 +34,13 @@ public class Candidat {
 
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
+    }
+
+    public int getIdProvincia() {
+        return idProvincia;
+    }
+
+    public void setIdProvincia(int idProvincia) {
+        this.idProvincia = idProvincia;
     }
 }
