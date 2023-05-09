@@ -79,7 +79,6 @@ public Candidat findById (int id) throws SQLException {
             int idPersona = rs.getInt("persona_id");
             int idProvincia = rs.getInt("provincia_id");
             Candidat candidat = new Candidat(id, idCandidatura, idPersona, idProvincia);
-            System.out.println(candidat);
             return candidat;
         }
     }
