@@ -62,7 +62,8 @@ public void findAll () throws SQLException {
                 int idPersona = rs.getInt("id_persona");
                 int idProvincia = rs.getInt("id_provincia");
                 Candidat candidat = new Candidat(id, idCandidatura, idPersona, idProvincia);
-                System.out.println(candidat);
+                //We print the object extracting its values
+                System.out.println(candidat.getId() + " " + candidat.getIdCandidatura() + " " + candidat.getIdPersona() + " " + candidat.getIdProvincia());
             }
         }
     }
