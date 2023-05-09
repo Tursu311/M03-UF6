@@ -35,7 +35,7 @@ public void create(Candidat candidat) throws SQLException {
 }
 
 public void update(Candidat candidat) throws SQLException {
-    String sql = "UPDATE candidats SET id_candidatura = ?, id_persona = ? WHERE id = ?";
+    String sql = "UPDATE candidats SET candidatura_id = ?, persona_id = ? WHERE candidat_id = ?";
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         ps.setInt(1, candidat.getIdCandidatura());
         ps.setInt(2, candidat.getIdPersona());
@@ -45,7 +45,7 @@ public void update(Candidat candidat) throws SQLException {
 }
 
 public void delete (int id) throws SQLException {
-    String sql = "DELETE FROM candidats WHERE id = ?";
+    String sql = "DELETE FROM candidats WHERE candidat_id = ?";
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         ps.setInt(1, id);
         ps.executeUpdate();
@@ -57,10 +57,10 @@ public void findAll () throws SQLException {
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                int id = rs.getInt("id");
-                int idCandidatura = rs.getInt("id_candidatura");
-                int idPersona = rs.getInt("id_persona");
-                int idProvincia = rs.getInt("id_provincia");
+                int id = rs.getInt("candidat_id");
+                int idCandidatura = rs.getInt("candidatura_id");
+                int idPersona = rs.getInt("persona_id");
+                int idProvincia = rs.getInt("provincia_id");
                 Candidat candidat = new Candidat(id, idCandidatura, idPersona, idProvincia);
                 System.out.println(candidat);
             }
