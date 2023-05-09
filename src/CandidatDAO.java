@@ -82,7 +82,6 @@ public Candidat findById (int id) throws SQLException {
             return candidat;
         }
     }
-
 }
 }
 
