@@ -42,6 +42,7 @@ public class DAO {
 
     //Tenim una taula candidats on hi ha la id de la persona( que aquest id esta a la taula persones, on esta el genere), i la id de la candidatura.
     //fem un metode que ens mostri el percentatge de dones i homes per candidatura
+<<<<<<< HEAD
     public static void donesHomesCandidatura() throws SQLException {
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM candidatures");
@@ -60,6 +61,18 @@ public class DAO {
             ResultSet rs4 = st4.executeQuery("SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = 'M' AND candidats.candidatura_id = " + idCandidatura);
             rs4.next();
             int homes = rs4.getInt(1);
+=======
+public static void donesHomesCandidatura() throws SQLException {
+    try (Connection con = getConnection()) {
+        CandidatureDAO candidatureDAO = new CandidatureDAO(con);
+        List<Candidature> candidatures = candidatureDAO.findAll();
+        for (Candidature candidature : candidatures) {
+            int idCandidatura = candidature.getId();
+            String nomCandidatura = candidature.getNomCurt();
+            int totalPersones = new CandidatDAO(con).countByCandidatura(idCandidatura);
+            int dones = candidatureDAO.countCandidats(idCandidatura, "F");
+            int homes = candidatureDAO.countCandidats(idCandidatura, "M");
+>>>>>>> 5be8746 (.)
             System.out.println("Candidatura: " + nomCandidatura);
             System.out.println("Dones: " + dones + " Homes: " + homes);
             System.out.println("Percentatge dones: " + (dones * 100 / totalPersones) + "%");
