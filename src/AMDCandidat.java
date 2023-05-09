@@ -44,7 +44,7 @@ public class AMDCandidat {
                 candidatDAO.update(candidat);
                 System.out.println("Candidate updated successfully.");
                 return;
-                } else if (args == "A") {
+            } else if (args == "A") {
                 System.out.print("Enter ID of candidatura: ");
                 int idCandidatura = scanner.nextInt();
                 System.out.print("Enter ID of persona: ");
