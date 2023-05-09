@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class AMCandidat {
+public class AMDCandidat {
     public static void main(String[] args) {
         try (Connection con = getConnection()) {
             Scanner scanner = new Scanner(System.in);
