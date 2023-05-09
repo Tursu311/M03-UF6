@@ -14,7 +14,8 @@ public class Main {
         System.out.println("2. Mostrar");
         System.out.println("3. Modificar");
         System.out.println("4. Esborrar");
-        System.out.println("5. Sortir");
+        System.out.println("5. Mostrar percentatjes dones/homes");
+        System.out.println("6. Sortir");
         System.out.print("Escull una opció: ");
         int opcio = scanner.nextInt();
 
@@ -30,63 +31,78 @@ public class Main {
                 Candidat candidat = new Candidat(0, idCandidatura, idPersona, idProvincia);
                 candidatDAO.create(candidat);
                 System.out.println("Candidate added successfully.");
-                return;
-            break;
+                break;
             case 2:
-                CandidatureDAO.donesHomesCandidatura();
+                System.out.println("You want to see all or search by ID?");
+                System.out.println("1. All");
+                System.out.println("2. Search by ID");
+                System.out.print("Enter option: ");
+                int option = scanner.nextInt();
+                switch (option) {
+                    case 1:
+                        candidatDAO = new CandidatDAO(con);
+                        candidatDAO.findAll();
+                        break;
+                    case 2:
+                        System.out.print("Enter ID of candidat: ");
+                        int id = scanner.nextInt();
+                        candidatDAO = new CandidatDAO(con);
+                        candidat = candidatDAO.findById(id);
+                        System.out.println(candidat);
+                        break;
+                    default:
+                        System.out.println("Invalid option.");
+                        return;
+                }
                 break;
             case 3:
                 candidatDAO = new CandidatDAO(con);
-                System.out.println(candidatDAO.findAll());
-                return;
-            System.out.println("What candidate do you want to modify?");
-            int id = scanner.nextInt();
-            candidat = candidatDAO.findById(id);
-            System.out.println("What do you want to modify?");
-            System.out.println("1. Candidatura");
-            System.out.println("2. Persona");
-            System.out.println("3. Provincia");
-            System.out.print("Enter option: ");
-            int option = scanner.nextInt();
-            switch (option) {
-                case 1:
-                    System.out.print("Enter new candidatura: ");
-                    idCandidatura = scanner.nextInt();
-                    candidat.setIdCandidatura(idCandidatura);
-                    break;
-                case 2:
-                    System.out.print("Enter new persona: ");
-                    idPersona = scanner.nextInt();
-                    candidat.setIdPersona(idPersona);
-                    break;
-                case 3:
-                    System.out.print("Enter new provincia: ");
-                    idProvincia = scanner.nextInt();
-                    candidat.setIdProvincia(idProvincia);
-                    break;
-                default:
-                    System.out.println("Invalid option.");
-                    return;
+                System.out.println("What candidate do you want to modify?");
+                int id = scanner.nextInt();
+                candidat = candidatDAO.findById(id);
+                System.out.println("What do you want to modify?");
+                System.out.println("1. Candidatura");
+                System.out.println("2. Persona");
+                System.out.println("3. Provincia");
+                System.out.print("Enter option: ");
+                int optiona = scanner.nextInt();
+                switch (optiona) {
+                    case 1:
+                        System.out.print("Enter new candidatura: ");
+                        idCandidatura = scanner.nextInt();
+                        candidat.setIdCandidatura(idCandidatura);
+                        break;
+                    case 2:
+                        System.out.print("Enter new persona: ");
+                        idPersona = scanner.nextInt();
+                        candidat.setIdPersona(idPersona);
+                        break;
+                    case 3:
+                        System.out.print("Enter new provincia: ");
+                        idProvincia = scanner.nextInt();
+                        candidat.setIdProvincia(idProvincia);
+                        break;
+                    default:
+                        System.out.println("Invalid option.");
+                        return;
+                }
                 candidatDAO.update(candidat);
                 System.out.println("Candidate updated successfully.");
                 return;
-                break;
                 case 4:
                     System.out.print("Enter ID of candidat: ");
                     id = scanner.nextInt();
                     candidatDAO = new CandidatDAO(con);
                     candidatDAO.delete(id);
                     System.out.println("Candidate deleted successfully.");
-                    return;
-            } else{
-                System.out.println("Invalid option.");
-                return;
-            }
-            ;
-            break;
+                break;
             case 5:
+                CandidatureDAO.donesHomesCandidatura();
+                break;
+            case 6:
                 System.exit(0);
         }
+    
     }
 
     private static Connection getConnection() {
@@ -97,3 +113,4 @@ public class Main {
         }
     }
 }
+
