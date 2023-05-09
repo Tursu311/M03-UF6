@@ -67,5 +67,20 @@ public void findAll () throws SQLException {
         }
     }
 }
+
+public void findById (int id) throws SQLException {
+    String sql = "SELECT * FROM candidats WHERE id = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, id);
+        try (ResultSet rs = ps.executeQuery()) {
+            rs.next();
+            int idCandidatura = rs.getInt("id_candidatura");
+            int idPersona = rs.getInt("id_persona");
+            int idProvincia = rs.getInt("id_provincia");
+            Candidat candidat = new Candidat(id, idCandidatura, idPersona, idProvincia);
+            System.out.println(candidat);
+        }
+    }
+}
 }
 
