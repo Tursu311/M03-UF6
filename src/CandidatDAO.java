@@ -70,14 +70,14 @@ public void findAll () throws SQLException {
 }
 
 public Candidat findById (int id) throws SQLException {
-    String sql = "SELECT * FROM candidats WHERE id = ?";
+    String sql = "SELECT * FROM candidats WHERE candidat_id = ?";
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         ps.setInt(1, id);
         try (ResultSet rs = ps.executeQuery()) {
             rs.next();
-            int idCandidatura = rs.getInt("id_candidatura");
-            int idPersona = rs.getInt("id_persona");
-            int idProvincia = rs.getInt("id_provincia");
+            int idCandidatura = rs.getInt("candidatura_id");
+            int idPersona = rs.getInt("persona_id");
+            int idProvincia = rs.getInt("provincia_id");
             Candidat candidat = new Candidat(id, idCandidatura, idPersona, idProvincia);
             System.out.println(candidat);
             return candidat;
