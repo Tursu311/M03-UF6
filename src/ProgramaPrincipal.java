@@ -5,14 +5,14 @@ import java.sql.SQLException;
 public class ProgramaPrincipal {
     public static Connection con;
 
-    public void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException {
         con = DriverManager.getConnection("jdbc:mysql://192.168.56.103/programacio?serverTimezone=UTC", "perepi", "pastanaga");
         ImportarComunitatsAutonomes();
         con.close();
     }
 
     // Importación de los datos de la tabla Comunitats Autonomes
-    public void ImportarComunitatsAutonomes() {
+    public static void ImportarComunitatsAutonomes() {
 
         CandidatDAO.countByCandidatura();
     }
