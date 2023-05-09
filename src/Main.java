@@ -48,7 +48,7 @@ public class Main {
                         int id = scanner.nextInt();
                         candidatDAO = new CandidatDAO(con);
                         candidat = candidatDAO.findById(id);
-                        System.out.println(candidat);
+                        System.out.println(candidat.getId() + " " + candidat.getIdCandidatura() + " " + candidat.getIdPersona() + " " + candidat.getIdProvincia());
                         break;
                     default:
                         System.out.println("Invalid option.");
