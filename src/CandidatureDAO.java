@@ -39,7 +39,6 @@ public class CandidatureDAO {
             }
         }
     }
-}
 
 public static void donesHomesCandidatura() throws SQLException {
     try (Connection con = getConnection()) {
