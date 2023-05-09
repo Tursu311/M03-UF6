@@ -7,7 +7,7 @@ public class AMDCandidat {
     public static void main(String[] args) {
         try (Connection con = getConnection()) {
             Scanner scanner = new Scanner(System.in);
-            if (args == "M") {
+            if (args.equals("M")) {
                 //show current candidats
                 CandidatDAO candidatDAO = new CandidatDAO(con);
                 System.out.println(candidatDAO.findAll());
