@@ -44,5 +44,27 @@ public void update(Candidat candidat) throws SQLException {
     }
 }
 
+public void delete (int id) throws SQLException {
+    String sql = "DELETE FROM candidats WHERE id = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, id);
+        ps.executeUpdate();
+    }
+}
+
+public void findAll () throws SQLException {
+    String sql = "SELECT * FROM candidats";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int idCandidatura = rs.getInt("id_candidatura");
+                int idPersona = rs.getInt("id_persona");
+                int idProvincia = rs.getInt("id_provincia");
+                Candidat candidat = new Candidat(id, idCandidatura, idPersona, idProvincia);
+                System.out.println(candidat);
+            }
+        }
+    }
 }
 
