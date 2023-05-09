@@ -6,12 +6,12 @@ public class ProgramaPrincipal {
     public static Connection con;
 
     public static void main(String[] args) throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://192.168.122.59/mydb?serverTimezone=UTC", "perepi", "pastanaga");
-        ImportarComunitatsAutonomes(); //todo aquesta si que es fa
+        con = DriverManager.getConnection("jdbc:mysql://192.168.56.103/programacio?serverTimezone=UTC", "perepi", "pastanaga");
+        ImportarComunitatsAutonomes();
         System.out.println("Comunitats Autonomes importades");
-        ImportProvincies();//todo aquesta si que es fa
+        ImportProvincies();
         System.out.println("Provincies importades");
-        ImportMunicipis();//todo aquesta si que es fa
+        ImportMunicipis();
         System.out.println("Municipis importats");
         ImportarCandidatures();
         System.out.println("Candidatures importades");

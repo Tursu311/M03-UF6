@@ -1,8 +1,4 @@
-import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +13,7 @@ public class CandidatureDAO {
         List<Candidature> candidatures = new ArrayList<>();
         String sql = "SELECT * FROM candidatures";
         try (Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql)) {
+             ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nomCurt = rs.getString("nom_curt");
@@ -39,27 +35,31 @@ public class CandidatureDAO {
             }
         }
     }
-}
 
-public static void donesHomesCandidatura() throws SQLException {
-    try (Connection con = getConnection()) {
-        CandidatureDAO candidatureDAO = new CandidatureDAO(con);
-        List<Candidature> candidatures = candidatureDAO.findAll();
-        for (Candidature candidature : candidatures) {
-            int idCandidatura = candidature.getId();
-            String nomCandidatura = candidature.getNomCurt();
-            int totalPersones = new CandidatDAO(con).countByCandidatura(idCandidatura);
-            int dones = candidatureDAO.countCandidats(idCandidatura, "F");
-            int homes = candidatureDAO.countCandidats(idCandidatura, "M");
-            System.out.println("Candidatura: " + nomCandidatura);
-            System.out.println("Dones: " + dones + " Homes: " + homes);
-            System.out.println("Percentatge dones: " + (dones * 100 / totalPersones) + "%");
-            System.out.println("Percentatge homes: " + (homes * 100 / totalPersones) + "%");
-            System.out.println();
+    public static void donesHomesCandidatura() throws SQLException {
+        try (Connection con = getConnection()) {
+            CandidatureDAO candidatureDAO = new CandidatureDAO(con);
+            List<Candidature> candidatures = candidatureDAO.findAll();
+            for (Candidature candidature : candidatures) {
+                int idCandidatura = candidature.getId();
+                String nomCandidatura = candidature.getNomCurt();
+                int totalPersones = new CandidatDAO(con).countByCandidatura(idCandidatura);
+                int dones = candidatureDAO.countCandidats(idCandidatura, "F");
+                int homes = candidatureDAO.countCandidats(idCandidatura, "M");
+                System.out.println("Candidatura: " + nomCandidatura);
+                System.out.println("Dones: " + dones + " Homes: " + homes);
+                System.out.println("Percentatge dones: " + (dones * 100 / totalPersones) + "%");
+                System.out.println("Percentatge homes: " + (homes * 100 / totalPersones) + "%");
+                System.out.println();
+            }
         }
     }
-}
 
-private static Connection getConnection() {
-    try {
-        return DriverManager.getConnection("jdbc:mysql://
+    private static Connection getConnection() {
+        try {
+            return DriverManager.getConnection("jdbc:mysql://192.168.56.103/programacio?serverTimezone=UTC", "perepi", "pastanaga");
+        }catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+    }
+}

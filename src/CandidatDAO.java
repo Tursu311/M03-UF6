@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CandidatDAO {
     private Connection con;
@@ -17,6 +18,8 @@ public class CandidatDAO {
                 rs.next();
                 return rs.getInt(1);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
