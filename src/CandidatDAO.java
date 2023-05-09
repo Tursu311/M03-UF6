@@ -33,5 +33,16 @@ public void create(Candidat candidat) throws SQLException {
         ps.executeUpdate();
     }
 }
+
+public void update(Candidat candidat) throws SQLException {
+    String sql = "UPDATE candidats SET id_candidatura = ?, id_persona = ? WHERE id = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, candidat.getIdCandidatura());
+        ps.setInt(2, candidat.getIdPersona());
+        ps.setInt(3, candidat.getId());
+        ps.executeUpdate();
+    }
+}
+
 }
 
