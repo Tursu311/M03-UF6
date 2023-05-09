@@ -15,7 +15,7 @@ public class CandidatureDAO {
         try (Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("candidatura_id");
                 String nomCurt = rs.getString("nom_curt");
                 Candidature candidature = new Candidature(id, nomCurt);
                 candidatures.add(candidature);
@@ -25,7 +25,7 @@ public class CandidatureDAO {
     }
 
     public int countCandidats(int idCandidatura, String sexe) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.id_persona = persones.id WHERE persones.sexe = ? AND candidats.id_candidatura = ?";
+        String sql = "SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = ? AND candidats.candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, sexe);
             ps.setInt(2, idCandidatura);

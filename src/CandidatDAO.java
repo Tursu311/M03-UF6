@@ -11,7 +11,7 @@ public class CandidatDAO {
     }
 
     public int countByCandidatura(int idCandidatura) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM candidats WHERE id_candidatura = ?";
+        String sql = "SELECT COUNT(*) FROM candidats WHERE candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idCandidatura);
             try (ResultSet rs = ps.executeQuery()) {
