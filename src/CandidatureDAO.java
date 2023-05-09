@@ -58,7 +58,4 @@ public static void donesHomesCandidatura() throws SQLException {
         }
     }
 }
-
-private static Connection getConnection() {
-    try {
-        return DriverManager.getConnection("jdbc:mysql://
+}
