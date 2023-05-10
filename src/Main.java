@@ -12,6 +12,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Candidatures");
         System.out.println("2. Provincies");
+        System.out.print("Escull una opció: ");
         int taula = scanner.nextInt();
         switch (taula) {
             case 1 -> menuCandidatures();
@@ -32,7 +33,7 @@ public class Main {
 
         switch (opcio) {
             case 1:
-                System.out.print("Enter ID of Comunitat Autonoma: ");
+                System.out.print("Enter ID of Comunitat Autonoma (1-19): ");
                 int idComuniatatAutonoma = scanner.nextInt();
                 System.out.print("Enter name: ");
                 String name = scanner.next();
@@ -55,7 +56,7 @@ public class Main {
                         provinciesDAO.findAll();
                     }
                     case 2 -> {
-                        System.out.print("Enter ID of candidat: ");
+                        System.out.print("Enter ID of provincia: ");
                         int id = scanner.nextInt();
                         provinciesDAO = new ProvinciesDAO(con);
                         provincia = provinciesDAO.findById(id);
@@ -146,20 +147,21 @@ public class Main {
                 System.out.print("Enter option: ");
                 int option = scanner.nextInt();
                 switch (option) {
-                    case 1:
+                    case 1 -> {
                         candidatDAO = new CandidatDAO(con);
                         candidatDAO.findAll();
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         System.out.print("Enter ID of candidat: ");
                         int id = scanner.nextInt();
                         candidatDAO = new CandidatDAO(con);
                         candidat = candidatDAO.findById(id);
                         System.out.println(candidat.getId() + " " + candidat.getIdCandidatura() + " " + candidat.getIdPersona() + " " + candidat.getIdProvincia());
-                        break;
-                    default:
+                    }
+                    default -> {
                         System.out.println("Invalid option.");
                         return;
+                    }
                 }
                 break;
             case 3:
@@ -174,24 +176,25 @@ public class Main {
                 System.out.print("Enter option: ");
                 int optiona = scanner.nextInt();
                 switch (optiona) {
-                    case 1:
+                    case 1 -> {
                         System.out.print("Enter new candidatura: ");
                         idCandidatura = scanner.nextInt();
                         candidat.setIdCandidatura(idCandidatura);
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         System.out.print("Enter new persona: ");
                         idPersona = scanner.nextInt();
                         candidat.setIdPersona(idPersona);
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         System.out.print("Enter new provincia: ");
                         idProvincia = scanner.nextInt();
                         candidat.setIdProvincia(idProvincia);
-                        break;
-                    default:
+                    }
+                    default -> {
                         System.out.println("Invalid option.");
                         return;
+                    }
                 }
                 candidatDAO.update(candidat);
                 System.out.println("Candidate updated successfully.");
