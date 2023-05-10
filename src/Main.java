@@ -7,7 +7,116 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         menu(args);
     }
+
     public static void menu(String[] args) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Candidatures");
+        System.out.println("2. Provincies");
+        int taula = scanner.nextInt();
+        switch (taula) {
+            case 1:
+                menuCandidatures(args);
+                break;
+            case 2:
+                menuProvincies(args);
+                break;
+        }
+    }
+
+    private static void menuProvincies(String[] args) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        Connection con = getConnection();
+        System.out.println("1. Afegir");
+        System.out.println("2. Mostrar");
+        System.out.println("3. Modificar");
+        System.out.println("4. Esborrar");
+        System.out.println("5. Sortir");
+        System.out.print("Escull una opció: ");
+        int opcio = scanner.nextInt();
+
+        switch (opcio) {
+            case 1:
+                System.out.print("Enter ID of Comunitat Autonoma: ");
+                int idComuniatatAutonoma = scanner.nextInt();
+                System.out.print("Enter name: ");
+                String name = scanner.next();
+                System.out.print("Enter Code Ine: ");
+                int codeIne = scanner.nextInt();
+                CandidatDAO candidatDAO = new CandidatDAO(con);
+                Provincies provincia = new Provincies(0, idComuniatatAutonoma, name, codeIne);
+                ProvinciesDAO.create(provincia);
+                System.out.println("Candidate added successfully.");
+                break;
+            case 2:
+                System.out.println("You want to see all or search by ID?");
+                System.out.println("1. All");
+                System.out.println("2. Search by ID");
+                System.out.print("Enter option: ");
+                int option = scanner.nextInt();
+                switch (option) {
+                    case 1:
+                        ProvinciesDAO provinciesDAO = new ProvinciesDAO(con);
+                        provinciesDAO.findAll();
+                        break;
+                    case 2:
+                        System.out.print("Enter ID of candidat: ");
+                        int id = scanner.nextInt();
+                        provinciesDAO= new ProvinciesDAO(con);
+                        provincia = ProvinciesDAO.findById(id);
+                        System.out.println(provincia.getId() + " " + provincia.getidComunitatAutonoma() + " " + provincia.getNom() + " " + provincia.getCodiIne());
+                        break;
+                    default:
+                        System.out.println("Invalid option.");
+                        return;
+                }
+                break;
+            case 3:
+                ProvinciesDAO provinciesDAO = new ProvinciesDAO(con);
+                System.out.println("What candidate do you want to modify?");
+                int id = scanner.nextInt();
+                provincia = provinciesDAO.findById(id);
+                System.out.println("What do you want to modify?");
+                System.out.println("1. Candidatura");
+                System.out.println("2. Persona");
+                System.out.println("3. Provincia");
+                System.out.print("Enter option: ");
+                int optiona = scanner.nextInt();
+                switch (optiona) {
+                    case 1:
+                        System.out.print("Enter new candidatura: ");
+                        idComuniatatAutonoma = scanner.nextInt();
+                        provincia.setidComunitatAutonoma(idComuniatatAutonoma);
+                        break;
+                    case 2:
+                        System.out.print("Enter new persona: ");
+                        name = scanner.next();
+                        provincia.setNom(name);
+                        break;
+                    case 3:
+                        System.out.print("Enter new provincia: ");
+                        codeIne = scanner.nextInt();
+                        provincia.setCodiIne(codeIne);
+                        break;
+                    default:
+                        System.out.println("Invalid option.");
+                        return;
+                }
+                ProvinciesDAO.update(provinciesDAO);
+                System.out.println("Candidate updated successfully.");
+                return;
+            case 4:
+                System.out.print("Enter ID of candidat: ");
+                id = scanner.nextInt();
+                provinciesDAO = new ProvinciesDAO(con);
+                ProvinciesDAO.delete(id);
+                System.out.println("Candidate deleted successfully.");
+                break;
+            case 5:
+                System.exit(0);
+        }
+    }
+
+    public static void menuCandidatures(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         Connection con = getConnection();
         System.out.println("1. Afegir");
@@ -89,12 +198,12 @@ public class Main {
                 candidatDAO.update(candidat);
                 System.out.println("Candidate updated successfully.");
                 return;
-                case 4:
-                    System.out.print("Enter ID of candidat: ");
-                    id = scanner.nextInt();
-                    candidatDAO = new CandidatDAO(con);
-                    candidatDAO.delete(id);
-                    System.out.println("Candidate deleted successfully.");
+            case 4:
+                System.out.print("Enter ID of candidat: ");
+                id = scanner.nextInt();
+                candidatDAO = new CandidatDAO(con);
+                candidatDAO.delete(id);
+                System.out.println("Candidate deleted successfully.");
                 break;
             case 5:
                 CandidatureDAO.donesHomesCandidatura();
@@ -102,13 +211,11 @@ public class Main {
             case 6:
                 System.exit(0);
         }
-    
-    }
-
-    private static Connection getConnection() {
+        }
+    private static Connection getConnection () {
         try {
             return DriverManager.getConnection("jdbc:mysql://192.168.56.103/programacio?serverTimezone=UTC", "perepi", "pastanaga");
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
