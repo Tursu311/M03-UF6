@@ -5,25 +5,21 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        menu(args);
+        menu();
     }
 
-    public static void menu(String[] args) throws SQLException {
+    public static void menu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Candidatures");
         System.out.println("2. Provincies");
         int taula = scanner.nextInt();
         switch (taula) {
-            case 1:
-                menuCandidatures(args);
-                break;
-            case 2:
-                menuProvincies(args);
-                break;
+            case 1 -> menuCandidatures();
+            case 2 -> menuProvincies();
         }
     }
 
-    private static void menuProvincies(String[] args) throws SQLException {
+    private static void menuProvincies() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         Connection con = getConnection();
         System.out.println("1. Afegir");
@@ -42,9 +38,9 @@ public class Main {
                 String name = scanner.next();
                 System.out.print("Enter Code Ine: ");
                 int codeIne = scanner.nextInt();
-                CandidatDAO candidatDAO = new CandidatDAO(con);
+                ProvinciesDAO provinciesDAO = new ProvinciesDAO(con);
                 Provincies provincia = new Provincies(0, idComuniatatAutonoma, name, codeIne);
-                ProvinciesDAO.create(provincia);
+                provinciesDAO.create(provincia);
                 System.out.println("Candidate added successfully.");
                 break;
             case 2:
@@ -54,24 +50,25 @@ public class Main {
                 System.out.print("Enter option: ");
                 int option = scanner.nextInt();
                 switch (option) {
-                    case 1:
-                        ProvinciesDAO provinciesDAO = new ProvinciesDAO(con);
+                    case 1 -> {
+                        provinciesDAO = new ProvinciesDAO(con);
                         provinciesDAO.findAll();
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         System.out.print("Enter ID of candidat: ");
                         int id = scanner.nextInt();
-                        provinciesDAO= new ProvinciesDAO(con);
-                        provincia = ProvinciesDAO.findById(id);
+                        provinciesDAO = new ProvinciesDAO(con);
+                        provincia = provinciesDAO.findById(id);
                         System.out.println(provincia.getId() + " " + provincia.getidComunitatAutonoma() + " " + provincia.getNom() + " " + provincia.getCodiIne());
-                        break;
-                    default:
+                    }
+                    default -> {
                         System.out.println("Invalid option.");
                         return;
+                    }
                 }
                 break;
             case 3:
-                ProvinciesDAO provinciesDAO = new ProvinciesDAO(con);
+                provinciesDAO = new ProvinciesDAO(con);
                 System.out.println("What candidate do you want to modify?");
                 int id = scanner.nextInt();
                 provincia = provinciesDAO.findById(id);
@@ -82,33 +79,34 @@ public class Main {
                 System.out.print("Enter option: ");
                 int optiona = scanner.nextInt();
                 switch (optiona) {
-                    case 1:
+                    case 1 -> {
                         System.out.print("Enter new candidatura: ");
                         idComuniatatAutonoma = scanner.nextInt();
                         provincia.setidComunitatAutonoma(idComuniatatAutonoma);
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         System.out.print("Enter new persona: ");
                         name = scanner.next();
                         provincia.setNom(name);
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         System.out.print("Enter new provincia: ");
                         codeIne = scanner.nextInt();
                         provincia.setCodiIne(codeIne);
-                        break;
-                    default:
+                    }
+                    default -> {
                         System.out.println("Invalid option.");
                         return;
+                    }
                 }
-                ProvinciesDAO.update(provinciesDAO);
+                provinciesDAO.update(provincia);
                 System.out.println("Candidate updated successfully.");
                 return;
             case 4:
                 System.out.print("Enter ID of candidat: ");
                 id = scanner.nextInt();
                 provinciesDAO = new ProvinciesDAO(con);
-                ProvinciesDAO.delete(id);
+                provinciesDAO.delete(id);
                 System.out.println("Candidate deleted successfully.");
                 break;
             case 5:
@@ -116,7 +114,7 @@ public class Main {
         }
     }
 
-    public static void menuCandidatures(String[] args) throws SQLException {
+    public static void menuCandidatures() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         Connection con = getConnection();
         System.out.println("1. Afegir");

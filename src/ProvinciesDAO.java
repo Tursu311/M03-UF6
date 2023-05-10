@@ -10,22 +10,22 @@ public class ProvinciesDAO {
         this.con = con;
     }
 
-    public void create(Candidat candidat) throws SQLException {
+    public void create(Provincies provincia) throws SQLException {
         String sql = "INSERT INTO provincies (comuniatat_aut_id, nom, codi_ine) VALUES (?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, Provincies.getidComunitatAutonoma());
-            ps.setString(2, Provincies.getNom());
-            ps.setInt(3, Provincies.getCodiIne());
+            ps.setInt(1, provincia.getidComunitatAutonoma());
+            ps.setString(2, provincia.getNom());
+            ps.setInt(3, provincia.getCodiIne());
             ps.executeUpdate();
         }
     }
 
-    public void update(Candidat candidat) throws SQLException {
+    public void update(Provincies provincia) throws SQLException {
         String sql = "UPDATE provincies SET comuniatat_aut_id = ?, nom = ? WHERE provincia_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, Provincies.getidComunitatAutonoma());
-            ps.setInt(2, Provincies.getNom());
-            ps.setInt(3, Provincies.getId());
+            ps.setInt(1, provincia.getidComunitatAutonoma());
+            ps.setString(2, provincia.getNom());
+            ps.setInt(3, provincia.getId());
             ps.executeUpdate();
         }
     }
