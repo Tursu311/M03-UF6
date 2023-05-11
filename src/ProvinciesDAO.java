@@ -21,7 +21,7 @@ public class ProvinciesDAO {
     }
 
     public void update(Provincies provincia) throws SQLException {
-        String sql = "UPDATE provincies SET comuniatat_aut_id = ?, nom = ? WHERE provincia_id = ?";
+        String sql = "UPDATE provincies SET comunitat_aut_id = ?, nom = ? WHERE provincia_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, provincia.getidComunitatAutonoma());
             ps.setString(2, provincia.getNom());
@@ -30,15 +30,15 @@ public class ProvinciesDAO {
         }
     }
 
-    public void delete (int id) throws SQLException {
-        String sql = "DELETE FROM provincia WHERE provincia_id = ?";
+    public void delete(int id) throws SQLException {
+        String sql = "DELETE FROM provincies WHERE provincia_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
     }
 
-    public void findAll () throws SQLException {
+    public void findAll() throws SQLException {
         String sql = "SELECT * FROM provincies";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
@@ -55,7 +55,7 @@ public class ProvinciesDAO {
         }
     }
 
-    public Provincies findById (int id) throws SQLException {
+    public Provincies findById(int id) throws SQLException {
         String sql = "SELECT * FROM provincies WHERE provincia_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -68,7 +68,5 @@ public class ProvinciesDAO {
                 return provincies;
             }
         }
-
     }
 }
-
