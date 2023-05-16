@@ -1,3 +1,11 @@
+import DAO.CandidatDAO;
+import DAO.CandidatureDAO;
+import DAO.ProvinciesDAO;
+import DAO.comunitats_autonomesDAO;
+import Objecte.Candidat;
+import Objecte.Comunitats_autonomes;
+import Objecte.Provincies;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,7 +19,7 @@ public class Main {
     public static void menu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Candidatures");
-        System.out.println("2. Provincies");
+        System.out.println("2. Objecte.Provincies");
         System.out.println("3. Comunitats Autonomes");
         System.out.print("Escull una opció: ");
         int taula = scanner.nextInt();

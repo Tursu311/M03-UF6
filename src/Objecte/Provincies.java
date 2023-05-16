@@ -1,3 +1,5 @@
+package Objecte;
+
 public class Provincies {
     private int id;
     private int idComunitatAutonoma;

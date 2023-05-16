@@ -1,3 +1,5 @@
+package Objecte;
+
 public class Comunitats_autonomes {
     private int id;
     private String nom;

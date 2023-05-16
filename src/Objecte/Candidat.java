@@ -1,3 +1,5 @@
+package Objecte;
+
 public class Candidat {
     private int id;
     private int idCandidatura;
