@@ -29,13 +29,12 @@ public class MunicipisDAO implements DAODB <Municipis> {
 
     @Override
     public boolean update(Municipis municipis) throws SQLException {
-        String sql = "UPDATE municipis SET municipi_id = ?,nom = ?, codi_ine = ?, provincia_id = ?, dsitricte = ? WHERE candidat_id = ?";
+        String sql = "UPDATE municipis SET nom = ?, codi_ine = ?, provincia_id = ?, dsitricte = ? WHERE municipi_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, municipis.getId());
-            ps.setString(2, municipis.getNom());
-            ps.setInt(3, municipis.getCodiIne());
-            ps.setInt(4, municipis.getIdProvincia());
-            ps.setString(5, municipis.getDistricte());
+            ps.setString(1, municipis.getNom());
+            ps.setInt(2, municipis.getCodiIne());
+            ps.setInt(3, municipis.getIdProvincia());
+            ps.setString(4, municipis.getDistricte());
             ps.executeUpdate();
         }
         return true;
