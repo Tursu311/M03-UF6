@@ -22,7 +22,7 @@ Usage
 
 1.  Compile the Java files.
 2.  Ensure you have a MySQL database set up and running.
-3.  Update the database connection details in the `getConnection()` method of the `Main` class.
+3.  Update the database connection details in the `getConnection()` method of the classes.
 4.  Run the compiled Java program.
 5.  Use the provided menu options to interact with the database:
     *   Option 1: Candidatures - Perform various operations related to candidatures.
@@ -31,3 +31,9 @@ Usage
     *   Option 4: Exit the program.
 
 Please note that the database connection details (URL, username, and password) may need to be modified according to your specific database setup.
+
+
+Notes:
+------
+
+*  
