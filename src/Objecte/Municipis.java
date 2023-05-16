@@ -7,7 +7,7 @@ public class Municipis {
 
     private int codiIne;
     private String districte;
-    public Municipis(int id, int idProvincia, String nom, int codiIne, String districte) {
+    public Municipis(int id,  String nom, int codiIne, int provincia_id, String districte) {
         this.id = id;
         this.idProvincia = idProvincia;
         this.nom = nom;

@@ -1,9 +1,11 @@
 package DAO;
 
+import Objecte.Comunitats_autonomes;
 import Objecte.Municipis;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -41,16 +43,47 @@ public class MunicipisDAO implements DAODB <Municipis> {
 
     @Override
     public boolean delete(int id) throws SQLException {
+        String sql = "DELETE FROM municipis WHERE municipi_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
         return false;
     }
 
     @Override
     public Municipis exists(int id) throws SQLException {
-        return null;
+        String sql = "SELECT * FROM municipis WHERE municipi_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                String nom = rs.getString("nom");
+                int codiINE = rs.getInt("codi_ine");
+                int provincia_id = rs.getInt("provincia_id");
+                String districte = rs.getString("districte");
+                Municipis municipis = new Municipis(id, nom, codiINE, provincia_id, districte);
+                return municipis;
+            }
+        }
     }
 
     @Override
     public List<Municipis> all() throws SQLException {
+        String sql = "SELECT * FROM municipis";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("municipi_id");
+                    String nom = rs.getString("nom");
+                    int codiINE = rs.getInt("codi_ine");
+                    int provincia_id = rs.getInt("provincia_id");
+                    String districte = rs.getString("districte");
+                    Municipis municipis = new Municipis(id, nom, codiINE, provincia_id, districte);
+                    System.out.println(municipis.getId() + " " + municipis.getNom() + " " + municipis.getCodiIne() + " " + municipis.getIdProvincia() + " " + municipis.getDistricte());
+                }
+            }
+        }
         return null;
     }
 }
