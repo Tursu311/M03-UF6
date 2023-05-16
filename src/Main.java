@@ -19,14 +19,16 @@ public class Main {
     public static void menu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Candidatures");
-        System.out.println("2. Objecte.Provincies");
+        System.out.println("2. Provincies");
         System.out.println("3. Comunitats Autonomes");
+        System.out.println("4. Sortir");
         System.out.print("Escull una opció: ");
         int taula = scanner.nextInt();
         switch (taula) {
             case 1 -> menuCandidatures();
             case 2 -> menuProvincies();
             case 3 -> menuComunitatsAutonomes();
+            case 4 -> System.exit(0);
         }
     }
 
@@ -314,7 +316,7 @@ public class Main {
                 case 6:
                     System.exit(0);
             }
-             }
+        }
     private static Connection getConnection () {
         try {
             return DriverManager.getConnection("jdbc:mysql://192.168.56.103/programacio?serverTimezone=UTC", "perepi", "pastanaga");
