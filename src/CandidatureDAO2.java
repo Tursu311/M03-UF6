@@ -7,45 +7,81 @@ public class CandidatureDAO2 implements DAODB<Candidature>{
 
     @Override
     public boolean create(Candidature candidature) throws SQLException {
-        String sql = "INSERT INTO candidats (eleccio_id, codi_candidatura, nom_curt, nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulacio_nacional) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO candidatures (eleccio_id, codi_candidatura, nom_curt, nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulacio_nacional) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, 1);
-            ps.setInt(2, 1);
-            ps.setString(3, "1");
-            ps.setString(4, " ");
-            ps.setInt(5, 1);
-            ps.setInt(6, 1);
-            ps.setInt(7, 1);
+            ps.setInt(1, candidature.getIdEleccio());
+            ps.setInt(2, candidature.getCodiCandidatura());
+            ps.setString(3, candidature.getNomCurt());
+            ps.setString(4, candidature.getNomLlarg());
+            ps.setInt(5, candidature.getCodiAcumulacioProvincia());
+            ps.setInt(6, candidature.getCodiAcumulacioCa());
+            ps.setInt(7, candidature.getCodiAcumulacioNacional());
             ps.executeUpdate();
         }
         return false;
     }
 
     @Override
-    public boolean read(Candidature candidature) {
-        return false;
-    }
-
-    @Override
     public boolean update(Candidature candidature) throws SQLException {
-        return false;
+        String sql = "UPDATE candidatures SET eleccio_id = ?, codi_candidatura = ?, nom_curt = ?, nom_llarg = ?, codi_acumulacio_provincia = ?, codi_acumulacio_ca = ?, codi_acumulacio_nacional = ? WHERE candidatura_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, candidature.getIdEleccio());
+            ps.setInt(2, candidature.getCodiCandidatura());
+            ps.setString(3, candidature.getNomCurt());
+            ps.setString(4, candidature.getNomLlarg());
+            ps.setInt(5, candidature.getCodiAcumulacioProvincia());
+            ps.setInt(6, candidature.getCodiAcumulacioCa());
+            ps.setInt(7, candidature.getCodiAcumulacioNacional());
+            ps.executeUpdate();
+        }
+        return true;
     }
 
     @Override
     public boolean delete(int id) throws SQLException {
+        String sql = "DELETE FROM candidatures WHERE candidatura_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
         return false;
     }
 
     @Override
     public Candidature exists(int id) throws SQLException {
-        return null;
+        String sql = "SELECT * FROM candidats WHERE candidat_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                int eleccio_id = rs.getInt("eleccio_id ");
+                String nomCurt = rs.getString("nom_curt");
+                String nomLlarg = rs.getString("nom_llarg");
+                int eleccioId = rs.getInt("eleccio_id");
+                int codiCandidatura = rs.getInt("codi_candidatura");
+                int codiAcumulacioProvincia = rs.getInt("codi_acumulacio_provincia");
+                int codiAcumulacioCa = rs.getInt("codi_acumulacio_ca");
+                int codiAcumulacioNacional = rs.getInt("codi_acumulacio_nacional");
+                Candidature candidature = new Candidature(eleccio_id, nomCurt, nomLlarg, eleccioId, codiCandidatura, codiAcumulacioProvincia, codiAcumulacioCa, codiAcumulacioNacional);
+                return candidature;
+            }
+        }
     }
 
     @Override
-    public int count() {
-        return 0;
+    public int count(Candidature candidature, int id) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM candidatures WHERE candidatura_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(candidature.getId());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public int countCandidats(int idCandidatura, String sexe) throws SQLException {
+    public int countCandidatures(int idCandidatura, String sexe) throws SQLException {
         String sql = "SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = ? AND candidats.candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, sexe);
@@ -66,7 +102,13 @@ public class CandidatureDAO2 implements DAODB<Candidature>{
             while (rs.next()) {
                 int id = rs.getInt("candidatura_id");
                 String nomCurt = rs.getString("nom_curt");
-                Candidature candidature = new Candidature(id, nomCurt);
+                String nomLlarg = rs.getString("nom_llarg");
+                int eleccioId = rs.getInt("eleccio_id");
+                int codiCandidatura = rs.getInt("codi_candidatura");
+                int codiAcumulacioProvincia = rs.getInt("codi_acumulacio_provincia");
+                int codiAcumulacioCa = rs.getInt("codi_acumulacio_ca");
+                int codiAcumulacioNacional = rs.getInt("codi_acumulacio_nacional");
+                Candidature candidature = new Candidature(id, nomCurt, nomLlarg, eleccioId, codiCandidatura, codiAcumulacioProvincia, codiAcumulacioCa, codiAcumulacioNacional);
                 candidatures.add(candidature);
             }
         }

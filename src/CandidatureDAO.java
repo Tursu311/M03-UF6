@@ -17,7 +17,13 @@ public class CandidatureDAO {
             while (rs.next()) {
                 int id = rs.getInt("candidatura_id");
                 String nomCurt = rs.getString("nom_curt");
-                Candidature candidature = new Candidature(id, nomCurt);
+                String nomLlarg = rs.getString("nom_llarg");
+                int eleccioId = rs.getInt("eleccio_id");
+                int codiCandidatura = rs.getInt("codi_candidatura");
+                int codiAcumulacioProvincia = rs.getInt("codi_acumulacio_provincia");
+                int codiAcumulacioCa = rs.getInt("codi_acumulacio_ca");
+                int codiAcumulacioNacional = rs.getInt("codi_acumulacio_nacional");
+                Candidature candidature = new Candidature(id, nomCurt, nomLlarg, eleccioId, codiCandidatura, codiAcumulacioProvincia, codiAcumulacioCa, codiAcumulacioNacional);
                 candidatures.add(candidature);
             }
         }

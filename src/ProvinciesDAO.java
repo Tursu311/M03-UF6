@@ -2,15 +2,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-public class ProvinciesDAO {
+public class ProvinciesDAO implements DAODB<Provincies> {
     private Connection con;
 
     public ProvinciesDAO(Connection con) {
         this.con = con;
     }
 
-    public void create(Provincies provincia) throws SQLException {
+    @Override
+    public boolean create(Provincies provincia) throws SQLException {
         String sql = "INSERT INTO provincies (comunitat_aut_id, nom, codi_ine) VALUES (?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, provincia.getidComunitatAutonoma());
@@ -18,9 +20,10 @@ public class ProvinciesDAO {
             ps.setInt(3, provincia.getCodiIne());
             ps.executeUpdate();
         }
+        return false;
     }
-
-    public void update(Provincies provincia) throws SQLException {
+    @Override
+    public boolean update(Provincies provincia) throws SQLException {
         String sql = "UPDATE provincies SET comunitat_aut_id = ?, nom = ? WHERE provincia_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, provincia.getidComunitatAutonoma());
@@ -28,17 +31,41 @@ public class ProvinciesDAO {
             ps.setInt(3, provincia.getId());
             ps.executeUpdate();
         }
+        return false;
     }
-
-    public void delete(int id) throws SQLException {
+    @Override
+    public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM provincies WHERE provincia_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
+        return false;
     }
 
-    public void findAll() throws SQLException {
+    @Override
+    public Provincies exists(int id) throws SQLException {
+        String sql = "SELECT * FROM provincies WHERE provincia_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                int idCandidatura = rs.getInt("comunitat_aut_id");
+                String nom = rs.getString("nom");
+                int idCodiIne = rs.getInt("provincia_id");
+                Provincies provincies = new Provincies(id, idCandidatura, nom, idCodiIne);
+                return provincies;
+            }
+        }
+    }
+
+    @Override
+    public int count(Provincies provincies, int id) throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public List<Provincies> all() throws SQLException {
         String sql = "SELECT * FROM provincies";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
@@ -53,20 +80,6 @@ public class ProvinciesDAO {
                 }
             }
         }
-    }
-
-    public Provincies findById(int id) throws SQLException {
-        String sql = "SELECT * FROM provincies WHERE provincia_id = ?";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                int idCandidatura = rs.getInt("comunitat_aut_id");
-                String nom = rs.getString("nom");
-                int idCodiIne = rs.getInt("provincia_id");
-                Provincies provincies = new Provincies(id, idCandidatura, nom, idCodiIne);
-                return provincies;
-            }
-        }
+        return null;
     }
 }

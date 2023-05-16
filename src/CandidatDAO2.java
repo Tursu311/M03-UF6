@@ -10,13 +10,14 @@ public class CandidatDAO2 implements DAODB<Candidat> {
     public CandidatDAO2(Connection con) {
         this.con = con;
     }
-    public int countByCandidatura(int idCandidatura) throws SQLException {
+    @Override
+    public int count(Candidat candidat, int id) throws SQLException {
         String sql = "SELECT COUNT(*) FROM candidats WHERE candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, idCandidatura);
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
-                return rs.getInt(1);
+                return rs.getInt(candidat.getIdCandidatura());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -35,10 +36,6 @@ public class CandidatDAO2 implements DAODB<Candidat> {
         return true;
     }
 
-    @Override
-    public boolean read(Candidat candidat) {
-        return true;
-    }
     @Override
     public boolean update(Candidat candidat) throws SQLException {
         String sql = "UPDATE candidats SET candidatura_id = ?, persona_id = ? WHERE candidat_id = ?";
@@ -75,11 +72,6 @@ public class CandidatDAO2 implements DAODB<Candidat> {
                 return candidat;
             }
         }
-    }
-
-    @Override
-    public int count() {
-        return 0;
     }
 
     @Override
