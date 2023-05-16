@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import Objecte.Candidature;
+
 public class CandidatureDAO implements DAODB<Objecte.Candidature> {
     private Connection con;
     public CandidatureDAO(Connection con) {
@@ -102,7 +104,7 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
         List<Candidature> candidatures = new ArrayList<>();
         String sql = "SELECT * FROM candidatures";
         try (Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+            ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("candidatura_id");
                 String nomCurt = rs.getString("nom_curt");

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import Objecte.Comunitats_autonomes;
 
 public class comunitats_autonomesDAO implements DAODB<Comunitats_autonomes> {
     private Connection con;

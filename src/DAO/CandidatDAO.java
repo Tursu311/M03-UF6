@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import Objecte.Candidat;
 
 public class CandidatDAO implements DAODB<Candidat> {
     private Connection con;
