@@ -33,7 +33,9 @@ Usage
 Please note that the database connection details (URL, username, and password) may need to be modified according to your specific database setup.
 
 
-Notes:
-------
+Key Features:
+-------------
 
-*  
+* Do basic functions for each table such as insert, delete, update, and select.
+* Show the percentages of men and women in each candidature
+* 
