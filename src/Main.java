@@ -1,10 +1,5 @@
-import DAO.CandidatDAO;
-import DAO.CandidatureDAO;
-import DAO.ProvinciesDAO;
-import DAO.comunitats_autonomesDAO;
-import Objecte.Candidat;
-import Objecte.Comunitats_autonomes;
-import Objecte.Provincies;
+import DAO.*;
+import Objecte.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
