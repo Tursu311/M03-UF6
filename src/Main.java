@@ -312,6 +312,8 @@ public class Main {
                     System.exit(0);
             }
         }
+        
+        
     private static Connection getConnection () {
         try {
             return DriverManager.getConnection("jdbc:mysql://192.168.56.103/programacio?serverTimezone=UTC", "perepi", "pastanaga");
