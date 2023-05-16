@@ -53,13 +53,13 @@ public class Main {
                 switch (option) {
                     case 1 -> {
                         comunitats_autonomesDAO = new comunitats_autonomesDAO(con);
-                        comunitats_autonomesDAO.findAll();
+                        comunitats_autonomesDAO.all();
                     }
                     case 2 -> {
                         System.out.print("Enter ID of provincia: ");
                         int id = scanner.nextInt();
                         comunitats_autonomesDAO = new comunitats_autonomesDAO(con);
-                        comunitats_autonomes = comunitats_autonomesDAO.findById(id);
+                        comunitats_autonomes = comunitats_autonomesDAO.exists(id);
                         System.out.println(comunitats_autonomes.getId() + " " + comunitats_autonomes.getNom() + " " + comunitats_autonomes.getCodiINE());
                     }
                     default -> {
@@ -72,7 +72,7 @@ public class Main {
                 comunitats_autonomesDAO = new comunitats_autonomesDAO(con);
                 System.out.println("What provincia do you want to modify?");
                 int id = scanner.nextInt();
-                comunitats_autonomes = comunitats_autonomesDAO.findById(id);
+                comunitats_autonomes = comunitats_autonomesDAO.exists(id);
                 System.out.println("What do you want to modify?");
                 System.out.println("1. Comunitat Autonoma");
                 System.out.println("2. Nom");
@@ -147,13 +147,13 @@ public class Main {
                     switch (option) {
                         case 1 -> {
                             provinciesDAO = new ProvinciesDAO(con);
-                            provinciesDAO.findAll();
+                            provinciesDAO.all();
                         }
                         case 2 -> {
                             System.out.print("Enter ID of provincia: ");
                             int id = scanner.nextInt();
                             provinciesDAO = new ProvinciesDAO(con);
-                            provincia = provinciesDAO.findById(id);
+                            provincia = provinciesDAO.exists(id);
                             System.out.println(provincia.getId() + " " + provincia.getidComunitatAutonoma() + " " + provincia.getNom() + " " + provincia.getCodiIne());
                         }
                         default -> {
@@ -166,7 +166,7 @@ public class Main {
                     provinciesDAO = new ProvinciesDAO(con);
                     System.out.println("What provincia do you want to modify?");
                     int id = scanner.nextInt();
-                    provincia = provinciesDAO.findById(id);
+                    provincia = provinciesDAO.exists(id);
                     System.out.println("What do you want to modify?");
                     System.out.println("1. Comunitat Autonoma");
                     System.out.println("2. Nom");
@@ -243,13 +243,13 @@ public class Main {
                     switch (option) {
                         case 1 -> {
                             candidatDAO = new CandidatDAO(con);
-                            candidatDAO.findAll();
+                            candidatDAO.all();
                         }
                         case 2 -> {
                             System.out.print("Enter ID of candidat: ");
                             int id = scanner.nextInt();
                             candidatDAO = new CandidatDAO(con);
-                            candidat = candidatDAO.findById(id);
+                            candidat = candidatDAO.exists(id);
                             System.out.println(candidat.getId() + " " + candidat.getIdCandidatura() + " " + candidat.getIdPersona() + " " + candidat.getIdProvincia());
                         }
                         default -> {
@@ -262,7 +262,7 @@ public class Main {
                     candidatDAO = new CandidatDAO(con);
                     System.out.println("What candidate do you want to modify?");
                     int id = scanner.nextInt();
-                    candidat = candidatDAO.findById(id);
+                    candidat = candidatDAO.exists(id);
                     System.out.println("What do you want to modify?");
                     System.out.println("1. Candidatura");
                     System.out.println("2. Persona");
