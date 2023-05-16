@@ -147,13 +147,13 @@ public class Main {
                     switch (option) {
                         case 1 -> {
                             provinciesDAO = new ProvinciesDAO(con);
-                            provinciesDAO.findAll();
+                            provinciesDAO.all();
                         }
                         case 2 -> {
                             System.out.print("Enter ID of provincia: ");
                             int id = scanner.nextInt();
                             provinciesDAO = new ProvinciesDAO(con);
-                            provincia = provinciesDAO.findById(id);
+                            provincia = provinciesDAO.exists(id);
                             System.out.println(provincia.getId() + " " + provincia.getidComunitatAutonoma() + " " + provincia.getNom() + " " + provincia.getCodiIne());
                         }
                         default -> {
@@ -166,7 +166,7 @@ public class Main {
                     provinciesDAO = new ProvinciesDAO(con);
                     System.out.println("What provincia do you want to modify?");
                     int id = scanner.nextInt();
-                    provincia = provinciesDAO.findById(id);
+                    provincia = provinciesDAO.exists(id);
                     System.out.println("What do you want to modify?");
                     System.out.println("1. Comunitat Autonoma");
                     System.out.println("2. Nom");
