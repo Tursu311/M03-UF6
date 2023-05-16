@@ -58,12 +58,6 @@ public class ProvinciesDAO implements DAODB<Provincies> {
             }
         }
     }
-
-    @Override
-    public int count(Provincies provincies, int id) throws SQLException {
-        return 0;
-    }
-
     @Override
     public List<Provincies> all() throws SQLException {
         String sql = "SELECT * FROM provincies";

@@ -8,6 +8,5 @@ public interface DAODB<T> {
     boolean delete(int id) throws SQLException;
     // ALTRES
     T exists(int id) throws SQLException;
-    int count(T t, int id)throws SQLException;
     List<T> all() throws SQLException;
 }
