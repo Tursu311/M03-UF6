@@ -43,4 +43,5 @@ Notes:
 
 Aside of making the basic CRUD operations, the program also allows to:
 
-Count the number of candidates in a candidature.
+*   Count the number of candidates in a candidature.
+*   See the percentage of men and women of a candidature.
