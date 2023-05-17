@@ -63,18 +63,18 @@ public class CandidatDAO implements DAODB<Candidat> {
             }
         }
     }
-    public int countByCandidatura(int idCandidatura) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM candidats WHERE candidatura_id = ?";
+    public int countCandidats(int idCandidatura, String sexe) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = ? AND candidats.candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, idCandidatura);
+            ps.setString(1, sexe);
+            ps.setInt(2, idCandidatura);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
                 return rs.getInt(1);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public List<Candidat> all() throws SQLException {

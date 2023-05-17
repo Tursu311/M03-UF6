@@ -55,7 +55,7 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
 
     @Override //TODO canviar a candidatures
     public Objecte.Candidature exists(int id) throws SQLException {
-        String sql = "SELECT * FROM candidats WHERE candidat_id = ?";
+        String sql = "SELECT * FROM candidatures WHERE candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -73,6 +73,18 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
             }
         }
     }
+    public int countByCandidatura(int idCandidatura) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM candidats WHERE candidatura_id = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idCandidatura);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public int count(int id, String sexe ) throws SQLException {
         String sql = "SELECT COUNT(*) FROM candidatures WHERE candidatura_id = ?";
@@ -87,20 +99,6 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
             throw new RuntimeException(e);
         }
     }
-
-    
-    public int countCandidats(int idCandidatura, String sexe) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = ? AND candidats.candidatura_id = ?";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, sexe);
-            ps.setInt(2, idCandidatura);
-            try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                return rs.getInt(1);
-            }
-        }
-    }
-
         @Override
     public List<Objecte.Candidature> all() throws SQLException {
         List<Candidature> candidatures = new ArrayList<>();
@@ -129,9 +127,9 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
             for (Candidature candidature : candidatures) {
                 int idCandidatura = candidature.getId();
                 String nomCandidatura = candidature.getNomCurt();
-                int totalPersones = new CandidatDAO(con).countByCandidatura(idCandidatura);
-                int dones = candidatureDAO.countCandidats(idCandidatura, "F");
-                int homes = candidatureDAO.countCandidats(idCandidatura, "M");
+                int totalPersones = candidatureDAO.countByCandidatura(idCandidatura);
+                int dones = new CandidatDAO(con).countCandidats(idCandidatura, "F");
+                int homes = new CandidatDAO(con).countCandidats(idCandidatura, "M");
                 System.out.println("Candidatura: " + nomCandidatura);
                 System.out.println("Dones: " + dones + " Homes: " + homes);
                 System.out.println("Percentatge dones: " + (dones * 100 / totalPersones) + "%");
