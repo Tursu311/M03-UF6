@@ -169,16 +169,18 @@ public class Main {
 
         switch (opcio) {
             case 1:
-                System.out.print("Enter ID of Comunitat Autonoma (1-19): ");
-                int idComuniatatAutonoma = scanner.nextInt();
                 System.out.print("Enter name: ");
                 String name = scanner.next();
                 System.out.print("Enter Code Ine: ");
                 int codeIne = scanner.nextInt();
-                ProvinciesDAO provinciesDAO = new ProvinciesDAO(con);
-                Provincies provincia = new Provincies(0, idComuniatatAutonoma, name, codeIne);
-                provinciesDAO.create(provincia);
-                System.out.println("Provincia added successfully.");
+                System.out.println("Enter ID of Provincia: ");
+                int idProvincia = scanner.nextInt();
+                System.out.println("Enter District: ");
+                String district = scanner.next();
+                MunicipisDAO municipisDAO = new MunicipisDAO(con);
+                Municipis municipis = new Municipis(0, name, codeIne, idProvincia, district);
+                municipisDAO.create(municipis);
+                System.out.println("Municipi added successfully.");
                 break;
             case 2:
                 System.out.println("You want to see all or search by ID?");
@@ -188,15 +190,15 @@ public class Main {
                 int option = scanner.nextInt();
                 switch (option) {
                     case 1 -> {
-                        provinciesDAO = new ProvinciesDAO(con);
-                        provinciesDAO.all();
+                        municipisDAO = new MunicipisDAO(con);
+                        municipisDAO.all();
                     }
                     case 2 -> {
                         System.out.print("Enter ID of provincia: ");
                         int id = scanner.nextInt();
-                        provinciesDAO = new ProvinciesDAO(con);
-                        provincia = provinciesDAO.exists(id);
-                        System.out.println(provincia.getId() + " " + provincia.getidComunitatAutonoma() + " " + provincia.getNom() + " " + provincia.getCodiIne());
+                        municipisDAO = new MunicipisDAO(con);
+                        municipis = municipisDAO.exists(id);
+                        System.out.println(municipis.getId() + " " + municipis.getNom() + " " + municipis.getCodiIne() + " " + municipis.getIdProvincia() + " " + municipis.getDistricte());
                     }
                     default -> {
                         System.out.println("Invalid option.");
@@ -205,46 +207,50 @@ public class Main {
                 }
                 break;
             case 3:
-                provinciesDAO = new ProvinciesDAO(con);
+                municipisDAO = new MunicipisDAO(con);
                 System.out.println("What provincia do you want to modify?");
                 int id = scanner.nextInt();
-                provincia = provinciesDAO.exists(id);
+                municipis = municipisDAO.exists(id);
                 System.out.println("What do you want to modify?");
-                System.out.println("1. Comunitat Autonoma");
-                System.out.println("2. Nom");
-                System.out.println("3. Codi ine");
+                System.out.println("1. Name");
+                System.out.println("2. Codi ine");
                 System.out.print("Enter option: ");
                 int optiona = scanner.nextInt();
                 switch (optiona) {
                     case 1 -> {
-                        System.out.print("Enter new comunitat autonoma: ");
-                        idComuniatatAutonoma = scanner.nextInt();
-                        provincia.setidComunitatAutonoma(idComuniatatAutonoma);
-                    }
-                    case 2 -> {
                         System.out.print("Enter new nom: ");
                         name = scanner.next();
-                        provincia.setNom(name);
+                        municipis.setNom(name);
                     }
-                    case 3 -> {
+                    case 2 -> {
                         System.out.print("Enter new codi ine: ");
                         codeIne = scanner.nextInt();
-                        provincia.setCodiIne(codeIne);
+                        municipis.setCodiIne(codeIne);
+                    }
+                    case 3 -> {
+                        System.out.print("Enter new id provincia: ");
+                        idProvincia = scanner.nextInt();
+                        municipis.setIdProvincia(idProvincia);
+                    }
+                    case 4 -> {
+                        System.out.print("Enter new district: ");
+                        district = scanner.next();
+                        municipis.setDistricte(district);
                     }
                     default -> {
                         System.out.println("Invalid option.");
                         return;
                     }
                 }
-                provinciesDAO.update(provincia);
-                System.out.println("Provincia updated successfully.");
+                municipisDAO.update(municipis);
+                System.out.println("Municipis updated successfully.");
                 return;
             case 4:
                 System.out.print("Enter ID of provincia: ");
                 id = scanner.nextInt();
-                provinciesDAO = new ProvinciesDAO(con);
-                provinciesDAO.delete(id);
-                System.out.println("Provincia deleted successfully.");
+                municipisDAO = new MunicipisDAO(con);
+                municipisDAO.delete(id);
+                System.out.println("Municipis deleted successfully.");
                 break;
             case 5:
                 System.exit(0);
