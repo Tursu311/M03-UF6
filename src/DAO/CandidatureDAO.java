@@ -53,7 +53,7 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
         return false;
     }
 
-    @Override
+    @Override //TODO canviar a candidatures
     public Objecte.Candidature exists(int id) throws SQLException {
         String sql = "SELECT * FROM candidats WHERE candidat_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -87,6 +87,8 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
             throw new RuntimeException(e);
         }
     }
+
+    
     public int countCandidats(int idCandidatura, String sexe) throws SQLException {
         String sql = "SELECT COUNT(*) FROM candidats INNER JOIN persones ON candidats.persona_id = persones.persona_id WHERE persones.sexe = ? AND candidats.candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {

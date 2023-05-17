@@ -29,8 +29,9 @@ Usage
 1.  Compile the Java files.
 2.  Ensure you have a MySQL database set up and running.
 3.  Update the database connection details in the `getConnection()` method of the classes.
-4.  Run the compiled Java program.
-5.  Use the provided menu options to interact with the database:
+4.  Activate delete cascade in the database.
+5.  Run the compiled Java program.
+6.  Use the provided menu options to interact with the database:
     *   `1`: Select a table to manage.
     *   `2`: Add, delete, or modify a table entry.
     *   `3`: Exit the program.
@@ -43,4 +44,5 @@ Notes:
 
 Aside of making the basic CRUD operations, the program also allows to:
 
-Count the number of candidates in a candidature.
+*   Count the number of candidates in a candidature.
+*   See the percentage of men and women of a candidature.
