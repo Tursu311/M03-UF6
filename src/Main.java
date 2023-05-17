@@ -3,11 +3,10 @@ import Objecte.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, ParseException {
+    public static void main(String[] args) throws SQLException {
         menu();
     }
 
@@ -325,7 +324,7 @@ public class Main {
                     int eleccioId = scanner.nextInt();
                     System.out.print("Enter code candidatura: ");
                     int codiCa = scanner.nextInt();
-                    System.out.print("Enter short name ");
+                    System.out.print("Enter initials: ");
                     String sName = scanner.next();
                     System.out.println("Enter name: ");
                     String name = scanner.next();
@@ -372,7 +371,7 @@ public class Main {
                     System.out.println("What do you want to modify?");
                     System.out.println("1. Eleccio ID");
                     System.out.println("2. Code Candidature");
-                    System.out.println("3. Short Name");
+                    System.out.println("3. Initials");
                     System.out.println("4. Name");
                     System.out.println("5. Code accumulation province");
                     System.out.println("6. Code accumulation autonomous community");
@@ -391,7 +390,7 @@ public class Main {
                             candidature.setCodiCandidatura(codiCa);
                         }
                         case 3 -> {
-                            System.out.print("Enter new short name: ");
+                            System.out.print("Enter new Initials: ");
                             sName = scanner.next();
                             candidature.setNomCurt(sName);
                         }

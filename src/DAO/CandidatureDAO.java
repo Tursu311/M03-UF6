@@ -13,7 +13,7 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
     }
     @Override
     public boolean create(Objecte.Candidature candidature) throws SQLException {
-        String sql = "INSERT INTO candidatures (eleccio_id, codi_candidatura, nom_curt, nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulacio_nacional) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO candidatures (eleccio_id, codi_candidatura, nom_curt, nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulario_nacional) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, candidature.getIdEleccio());
             ps.setInt(2, candidature.getCodiCandidatura());
@@ -29,7 +29,7 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
 
     @Override
     public boolean update(Objecte.Candidature candidature) throws SQLException {
-        String sql = "UPDATE candidatures SET eleccio_id = ?, codi_candidatura = ?, nom_curt = ?, nom_llarg = ?, codi_acumulacio_provincia = ?, codi_acumulacio_ca = ?, codi_acumulacio_nacional = ? WHERE candidatura_id = ?";
+        String sql = "UPDATE candidatures SET eleccio_id = ?, codi_candidatura = ?, nom_curt = ?, nom_llarg = ?, codi_acumulacio_provincia = ?, codi_acumulacio_ca = ?, codi_acumulario_nacional = ? WHERE candidatura_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, candidature.getIdEleccio());
             ps.setInt(2, candidature.getCodiCandidatura());
@@ -38,6 +38,7 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
             ps.setInt(5, candidature.getCodiAcumulacioProvincia());
             ps.setInt(6, candidature.getCodiAcumulacioCa());
             ps.setInt(7, candidature.getCodiAcumulacioNacional());
+            ps.setInt(8, candidature.getId());
             ps.executeUpdate();
         }
         return true;
@@ -60,15 +61,15 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
-                int eleccio_id = rs.getInt("eleccio_id ");
+                int eleccio_id = rs.getInt("eleccio_id");
                 String nomCurt = rs.getString("nom_curt");
                 String nomLlarg = rs.getString("nom_llarg");
                 int eleccioId = rs.getInt("eleccio_id");
                 int codiCandidatura = rs.getInt("codi_candidatura");
                 int codiAcumulacioProvincia = rs.getInt("codi_acumulacio_provincia");
                 int codiAcumulacioCa = rs.getInt("codi_acumulacio_ca");
-                int codiAcumulacioNacional = rs.getInt("codi_acumulacio_nacional");
-                Objecte.Candidature candidature = new Objecte.Candidature(eleccio_id, nomCurt, nomLlarg, eleccioId, codiCandidatura, codiAcumulacioProvincia, codiAcumulacioCa, codiAcumulacioNacional);
+                int codiAcumulacioNacional = rs.getInt("codi_acumulario_nacional");
+                Candidature candidature = new Candidature(id, nomCurt, nomLlarg, eleccioId, codiCandidatura, codiAcumulacioProvincia, codiAcumulacioCa, codiAcumulacioNacional);
                 return candidature;
             }
         }
@@ -100,7 +101,7 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
         }
     }
         @Override
-    public List<Objecte.Candidature> all() throws SQLException {
+    public List<Candidature> all() throws SQLException {
         List<Candidature> candidatures = new ArrayList<>();
         String sql = "SELECT * FROM candidatures";
         try (Statement st = con.createStatement();
@@ -113,9 +114,10 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
                 int codiCandidatura = rs.getInt("codi_candidatura");
                 int codiAcumulacioProvincia = rs.getInt("codi_acumulacio_provincia");
                 int codiAcumulacioCa = rs.getInt("codi_acumulacio_ca");
-                int codiAcumulacioNacional = rs.getInt("codi_acumulacio_nacional");
+                int codiAcumulacioNacional = rs.getInt("codi_acumulario_nacional");
                 Candidature candidature = new Candidature(id, nomCurt, nomLlarg, eleccioId, codiCandidatura, codiAcumulacioProvincia, codiAcumulacioCa, codiAcumulacioNacional);
                 candidatures.add(candidature);
+                System.out.println(candidature.getId() + " " + candidature.getNomCurt() + " " + candidature.getNomLlarg() + " " + candidature.getIdEleccio() + " " + candidature.getCodiCandidatura() + " " + candidature.getCodiAcumulacioProvincia() + " " + candidature.getCodiAcumulacioCa() + " " + candidature.getCodiAcumulacioNacional());
             }
         }
         return candidatures;
@@ -128,6 +130,9 @@ public class CandidatureDAO implements DAODB<Objecte.Candidature> {
                 int idCandidatura = candidature.getId();
                 String nomCandidatura = candidature.getNomCurt();
                 int totalPersones = candidatureDAO.countByCandidatura(idCandidatura);
+                if (totalPersones == 0) {
+                    break;
+                }
                 int dones = new CandidatDAO(con).countCandidats(idCandidatura, "F");
                 int homes = new CandidatDAO(con).countCandidats(idCandidatura, "M");
                 System.out.println("Candidatura: " + nomCandidatura);
